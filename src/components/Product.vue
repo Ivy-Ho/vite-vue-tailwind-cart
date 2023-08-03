@@ -8,8 +8,8 @@
       <!-- buttons -->
         <button @click="addToCart(product)">
           <div class='absolute top-4 -right-11 group-hover:right-4 p-2 l opacity-0 group-hover:opacity-100 transition-all duration-300
-          flex justify-center items-center text-white w-12 h-12 bg-red-500'
-          :class="{ 'bg-gray-400 cursor-default': product.status === '尚未開始' }"
+          flex justify-center items-center text-white w-12 h-12'
+          :class="[(product.status === '尚未開始') ? 'bg-gray-400 cursor-default' : 'bg-red-500']"
           >
             add
           </div>
@@ -25,8 +25,8 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import { useStore } from 'vuex'
+import { defineProps } from 'vue';
+import { useStore } from 'vuex';
 const store = useStore();
 
 defineProps({
