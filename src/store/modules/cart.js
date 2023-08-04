@@ -5,6 +5,16 @@ export default {
     products : [],
     cartItems:[],
   },
+  getters: {
+    totalAmount(state) {
+      let total = 0;
+      state.cartItems.forEach((item) => {
+        total += item.amount
+      })
+      
+      return total;
+    },
+  },
   mutations: {
     getProducts(state, payload) {
         state.products = payload;
@@ -60,7 +70,7 @@ export default {
     setDecreaseAmount(state, payload) {
       state.cartItems = payload;
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-    }
+    },
   },
   actions : {
     getProducts(context) {
@@ -107,5 +117,4 @@ export default {
       }
     }
   }
-
 }

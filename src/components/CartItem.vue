@@ -1,5 +1,5 @@
 <template>
-  <div class='cartItem w-full flex justify-between items-center gap-2'>
+  <div class='cartItem w-full flex justify-between items-center gap-2 border-b pb-5'>
     <!-- checkbox -->
     <div 
        class="relative -left-20 opacity-0 transition-all duration-300"
@@ -11,7 +11,7 @@
     </div>
     <!-- image -->
     <div class="w-[80px] h-[70px] md:w-[140px] md:h-[100px]">
-    <img class='block w-full h-full object-cover' :src="item.picture" alt='' />
+    <img class='block w-full h-full object-cover rounded' :src="item.picture" alt='' />
     </div>
     <!-- title & [qty & price & remove button]  -->
     <div class="flex-1 flex flex-col justify-between md:flex-row md:items-center md:gap-3">

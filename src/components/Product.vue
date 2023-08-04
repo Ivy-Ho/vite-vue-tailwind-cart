@@ -2,10 +2,10 @@
   <div class="product group">
     <div class='relative h-[150px] mb-4 overflow-hidden transition'>
       <!-- image -->
-      <img class='w-full h-[150px] object-cover block lg:group-hover:scale-110 transition duration-300' :src="product.picture" alt="" />
+      <img class='w-full h-[150px] object-cover block lg:group-hover:scale-110 transition duration-300 rounded-tl rounded-tr ' :src="product.picture" alt="" />
       <!-- status -->
       <div 
-        class='text-sm capitalize mb-2 w-20 py-1 text-center absolute top-3 right-2'
+        class='text-sm capitalize mb-2 w-20 py-1 rounded text-center absolute top-3 right-2'
         :class="[(product.status === '尚未開始') ? 'bg-gray-500 text-white' : 'bg-[#f4ba63] text-gray-700']"
       >
         {{ product.status }}
@@ -20,7 +20,7 @@
        <!-- buttons -->
       <button 
         @click="addToCart(product)"
-        class="w-full text-center py-1"
+        class="w-full text-center py-1 rounded"
         :class="[(product.status === '尚未開始') ? 'bg-gray-500 text-white cursor-default' : 'bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white']"
       >
         <i class="fa-solid fa-cart-plus mr-3"></i>加入購物車
