@@ -21,7 +21,7 @@
       <button 
         @click="addToCart(product)"
         class="w-full text-center py-1"
-        :class="[(product.status === '尚未開始') ? 'bg-gray-500 text-white' : 'bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white']"
+        :class="[(product.status === '尚未開始') ? 'bg-gray-500 text-white cursor-default' : 'bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white']"
       >
         <i class="fa-solid fa-cart-plus mr-3"></i>加入購物車
       </button>
