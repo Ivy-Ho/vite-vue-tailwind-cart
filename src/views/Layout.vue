@@ -1,10 +1,8 @@
 <template>
   <div class="layout">
-    <Navbar msg="Vite + Vue" />
-    <div class="max-w-7xl mx-auto relative z-0 mb-page-min-height">
-      <div class="sm:px-16 px-6 sm:py-16 py-10 container mx-auto rounded-xl shadow border p-8 m-10">
-        <router-view />
-      </div>
+    <Navbar />
+    <div class="container m-10 px-7 md:px-10 max-w-7xl mx-auto">
+      <router-view />
     </div>
   </div>
 </template>

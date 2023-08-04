@@ -1,25 +1,30 @@
 <template>
-  <div class="product">
-    <div class='border border-[#e4e4e4] h-[150px] mb-4 relative overflow-hidden group transition'>
-      <div class='w-full h-full flex justify-center items-center'>
-        <!-- image -->
-          <img class='group-hover:scale-110 transition duration-300' :src="product.picture" alt="" />
+  <div class="product group">
+    <div class='relative h-[150px] mb-4 overflow-hidden transition'>
+      <!-- image -->
+      <img class='w-full h-[150px] object-cover block lg:group-hover:scale-110 transition duration-300' :src="product.picture" alt="" />
+      <!-- status -->
+      <div 
+        class='text-sm capitalize mb-2 w-20 py-1 text-center absolute top-3 right-2'
+        :class="[(product.status === '尚未開始') ? 'bg-gray-500 text-white' : 'bg-[#f4ba63] text-gray-700']"
+      >
+        {{ product.status }}
       </div>
-      <!-- buttons -->
-        <button @click="addToCart(product)">
-          <div class='absolute top-4 -right-11 group-hover:right-4 p-2 l opacity-0 group-hover:opacity-100 transition-all duration-300
-          flex justify-center items-center text-white w-12 h-12'
-          :class="[(product.status === '尚未開始') ? 'bg-gray-400 cursor-default' : 'bg-red-500']"
-          >
-            add
-          </div>
-        </button>
     </div>
     <!-- category & title & price -->
     <div>
-      <div class='text-sm capitalize text-gray-500 mb-1'>{{ product.status }}</div>
+      <!-- title -->
       <h2 class='font-medium mb-1'>{{ product.title }}</h2>
-      <div class='font-bold'>$ {{ product.price }}</div>
+      <!-- price -->
+      <div class='font-bold mb-1'>$ {{ product.price }}</div>
+       <!-- buttons -->
+      <button 
+        @click="addToCart(product)"
+        class="w-full text-center py-1"
+        :class="[(product.status === '尚未開始') ? 'bg-gray-500 text-white' : 'bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white']"
+      >
+        <i class="fa-solid fa-cart-plus mr-3"></i>加入購物車
+      </button>
     </div>
   </div>
 </template>
@@ -39,6 +44,8 @@ defineProps({
 const addToCart = (product) => {
   if(product.status !== '尚未開始') {
     store.commit('addToCart',product);
+  }else {
+    return
   }
 };
 

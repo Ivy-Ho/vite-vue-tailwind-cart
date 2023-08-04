@@ -3,7 +3,7 @@ import axios from 'axios';
 export default {
   state: {
     products : [],
-    cartItems:[],  
+    cartItems:[],
   },
   mutations: {
     getProducts(state, payload) {
