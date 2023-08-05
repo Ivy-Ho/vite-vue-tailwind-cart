@@ -8,30 +8,39 @@ export default {
   getters: {
     totalAmount(state) {
       let total = 0;
-      state.cartItems.forEach((item) => {
-        total += item.amount
-      })
-      
+      if(state.cartItems.length) {
+        state.cartItems.forEach((item) => {
+          total += item.amount
+        })
+      }
       return total;
     },
+    selectedItems(state) {
+      let data = state.cartItems.map((item) => {
+        return {
+          ...item, 
+          checked: true,
+        }
+      })
+      return data;
+    }
   },
   mutations: {
     getProducts(state, payload) {
-        state.products = payload;
+      state.products = payload;
     },
-    getCartItems(state) {
-      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
-      state.cartItems = jsonData;
+    getCartItems(state, payload) {
+      state.cartItems = payload || [];
     },
     addToCart(state, payload) {
       // get cart data
-      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
+      const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
 
       // get new item
       const newItem = {...payload, amount: 1 };
 
       // check if localStorage already have any data
-      if(jsonData) {
+      if(jsonData.length) {
         // check if the item is already in the cart
         const cartItem = jsonData.find((item) => {
           return item.id === payload.id;
@@ -52,29 +61,25 @@ export default {
         }
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
       }else {
-        state.cartItems.push(newItem);
+        state.cartItems = ([newItem]);
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
       }
     },
     removeFromCart(state, payload) {
-      // get cart data
-      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
-
-      // remove item
-      const newCart = jsonData.filter(item => item.id !== payload.id);
-
-      // set data
-      state.cartItems = (newCart);
+      state.cartItems = payload;
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
-    setDecreaseAmount(state, payload) {
+    decreaseAmount(state, payload) {
+      state.cartItems = payload;
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    },
+    multipleRemove(state, payload) {
       state.cartItems = payload;
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
   },
   actions : {
     getProducts(context) {
-      // const url = 'https://fakestoreapi.com/products';
       const url = 'https://run.mocky.io/v3/d7a29aba-9aac-4a97-b1b7-7b3d87ae8b7e';
 
       axios.get(url)
@@ -84,6 +89,11 @@ export default {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+    },
+    getCartItems(context) {
+      const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      context.commit('getCartItems', jsonData);
     },
     increaseAmount(context, payload) {
       // get cart data
@@ -95,6 +105,15 @@ export default {
       // add to cart
       context.commit('addToCart', cartItem);
     },
+    removeFromCart(context, payload) {
+      // get cart data
+      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
+
+      // remove item
+      const newCart = jsonData.filter(item => item.id !== payload.id);
+
+      context.commit('removeFromCart', newCart);
+    },
     decreaseAmount(context, payload) {
       // get cart data
       const jsonData = JSON.parse(localStorage.getItem('cartItems'));
@@ -104,7 +123,7 @@ export default {
 
       // check if item's amount < 2, remove it
       if(cartItem.amount < 2) {
-        context.commit('removeFromCart', cartItem);
+        context.dispatch('removeFromCart', cartItem);
       } else {
           const newCart = [...jsonData].map((item) => {
             if(item.id === payload) {
@@ -113,8 +132,16 @@ export default {
               return item;
             }
           });
-        context.commit('setDecreaseAmount', newCart);
+        context.commit('decreaseAmount', newCart);
       }
+    },
+    multipleRemove(context,payload) {
+      // remove item
+      const newCart = payload.filter((item) => {
+        return item.checked === false
+      });
+
+      context.commit('multipleRemove', newCart);
     }
   }
 }

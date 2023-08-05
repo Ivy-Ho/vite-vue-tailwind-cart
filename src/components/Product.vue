@@ -50,7 +50,3 @@ const addToCart = (product) => {
 };
 
 </script>
-
-<style>
-
-</style>

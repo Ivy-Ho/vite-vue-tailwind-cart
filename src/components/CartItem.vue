@@ -1,14 +1,11 @@
 <template>
   <div class='cartItem w-full flex justify-between items-center gap-2 border-b pb-5'>
     <!-- checkbox -->
-    <div 
-       class="relative -left-20 opacity-0 transition-all duration-300"
-      :class="{ 'left-0 opacity-100': multipleRemove }"
-    >
-      <input
-        type="checkbox"
-      />
-    </div>
+    <input
+      type="checkbox"
+      :checked="checkedData"
+      @click="$emit('checkItem', item.id)"
+    />
     <!-- image -->
     <div class="w-[80px] h-[70px] md:w-[140px] md:h-[100px]">
     <img class='block w-full h-full object-cover rounded' :src="item.picture" alt='' />
@@ -52,23 +49,23 @@
   </div>
 </template>
 <script setup>
-import { defineProps } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
 
-defineProps({
+let props = defineProps({
   item: {
     type: Object,
     default: {}
   },
-  multipleRemove: {
-    type: Boolean,
-    default: false,
-  },
+  selectedItemsData: {
+    type: Array,
+    default: []
+  }
 })
 
 const removeFromCart = (product) => {
-  store.commit('removeFromCart', product);
+  store.dispatch('removeFromCart', product);
 };
 
 const increaseAmount = (id) => {
@@ -79,9 +76,13 @@ const decreaseAmount = (id) => {
   store.dispatch('decreaseAmount', id);
 }
 
-const handleCheck = (id) => {
-  store.dispatch('handleCheck', id);
-}
+const checkedData = computed(() => {
+  const data = props.selectedItemsData.filter((el) => {
+    return el.id ===  props.item.id
+  })
+
+  return data.length > 0 ? data[0].checked : true;
+})
 
 
 </script>

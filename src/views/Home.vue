@@ -20,6 +20,7 @@ const store = useStore()
 
 onMounted(() => {
   store.dispatch("getProducts");
+  store.dispatch("getCartItems");
 });
 
 const products = computed(() => {

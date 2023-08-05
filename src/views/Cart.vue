@@ -3,31 +3,34 @@
     <h2 class="text-2xl mb-4">購物車</h2>
 
     <div v-if="cartItems.length">
-      <div class="flex justify-between py-2">
+      <div class="flex items-center py-2">
         <!-- checkbox -->
-        <div 
-          class="relative -left-20 top-0 opacity-0 transition-all duration-300"
-          :class="{'left-0 opacity-100': multipleRemove}"
-        >
           <input 
             class="mr-2"
             id="checkAll"
             name="checkAll"
             type="checkbox"
+            :checked="checkAll"
+            @click="handleCheckAll()"
           />
           <label for="checkAll">全選</label>
-        </div>
         <!-- multiple remove button -->
         <button 
-          class="bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white px-3 py-1 rounded"
-          @click="multipleRemove = !multipleRemove"
+          class="bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white px-3 py-1 rounded ml-auto"
+          @click="multipleRemove()"
         >
-          多項刪除
+          刪除選取項目
         </button>
       </div>
       <hr class="mb-5">
       <div class='flex flex-col gap-5 mb-5'>
-        <CartItem :item="item" :multipleRemove="multipleRemove" v-for="item in cartItems" :key="item.id" />
+        <CartItem 
+          :item="item"
+          :selectedItemsData="selectedItemsData"
+          v-for="item in cartItems" 
+          :key="item.id"
+          @checkItem="checkItem"
+        />
       </div>
       <div class="w-[150px] md:w-1/3 flex flex-col ml-auto mb-10">
         <p>共 {{ totalAmount }} 件商品</p>
@@ -56,18 +59,18 @@
   </main>
 </template>
 <script setup>
-import { onMounted, computed, ref } from 'vue';
+import { onMounted, computed, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
 
 const store = useStore()
 
-const multipleRemove = ref(false);
+const selectedItemsData = ref(store.getters.selectedItems);
+const checkAll = ref(true)
 
 onMounted(() => {
-  store.commit("getCartItems");
+  store.dispatch("getCartItems");
 });
-
 
 const cartItems = computed(() => {
   return store.state.cart.cartItems;
@@ -84,6 +87,34 @@ const totalPrice = computed(()=> {
   })
 
   return total
+})
+
+const checkItem = (id) => {
+  let newSelectedItemsData = selectedItemsData.value.map((item) => {
+    if (item.id === id) {
+      return { ...item, checked: !(item.checked)}
+    }else {
+      return item;
+    }
+  });
+  selectedItemsData.value = newSelectedItemsData;
+}
+
+const multipleRemove = () => {
+  store.dispatch('multipleRemove', selectedItemsData.value);
+}
+
+const handleCheckAll = () => {
+  checkAll.value = !checkAll.value
+  selectedItemsData.value.forEach((item) => {
+    item.checked = checkAll.value;
+  })
+}
+
+watch(() => selectedItemsData.value, () => {
+  let hasAnyNonChecked = selectedItemsData.value.some((item) => item.checked === false)
+
+  hasAnyNonChecked ? checkAll.value = false : checkAll.value = true;
 })
 
 </script>
