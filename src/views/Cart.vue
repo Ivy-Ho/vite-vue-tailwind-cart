@@ -26,10 +26,8 @@
       <div class='flex flex-col gap-5 mb-5'>
         <CartItem 
           :item="item"
-          :selectedItemsData="selectedItemsData"
           v-for="item in cartItems" 
           :key="item.id"
-          @checkItem="checkItem"
         />
       </div>
       <div class="w-[150px] md:w-1/3 flex flex-col ml-auto mb-10">
@@ -65,11 +63,11 @@ import CartItem from '@/components/CartItem.vue';
 
 const store = useStore()
 
-const selectedItemsData = ref(store.getters.selectedItems);
-const checkAll = ref(true)
+const checkAll = ref(false)
 
 onMounted(() => {
   store.dispatch("getCartItems");
+  store.dispatch("resetChecked");
 });
 
 const cartItems = computed(() => {
@@ -89,31 +87,18 @@ const totalPrice = computed(()=> {
   return total
 })
 
-const checkItem = (id) => {
-  let newSelectedItemsData = selectedItemsData.value.map((item) => {
-    if (item.id === id) {
-      return { ...item, checked: !(item.checked)}
-    }else {
-      return item;
-    }
-  });
-  selectedItemsData.value = newSelectedItemsData;
-}
-
-const multipleRemove = () => {
-  store.dispatch('multipleRemove', selectedItemsData.value);
-}
 
 const handleCheckAll = () => {
   checkAll.value = !checkAll.value
-  selectedItemsData.value.forEach((item) => {
-    item.checked = checkAll.value;
-  })
+  store.dispatch("handleCheckAll", checkAll.value);
 }
 
-watch(() => selectedItemsData.value, () => {
-  let hasAnyNonChecked = selectedItemsData.value.some((item) => item.checked === false)
+const multipleRemove = () => {
+  store.dispatch('multipleRemove');
+}
 
+watch(() => cartItems.value, () => {
+  let hasAnyNonChecked = cartItems.value.some((item) => item.checked === false)
   hasAnyNonChecked ? checkAll.value = false : checkAll.value = true;
 })
 

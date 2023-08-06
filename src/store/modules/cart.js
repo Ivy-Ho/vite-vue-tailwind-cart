@@ -15,15 +15,6 @@ export default {
       }
       return total;
     },
-    selectedItems(state) {
-      let data = state.cartItems.map((item) => {
-        return {
-          ...item, 
-          checked: true,
-        }
-      })
-      return data;
-    }
   },
   mutations: {
     getProducts(state, payload) {
@@ -37,7 +28,7 @@ export default {
       const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
 
       // get new item
-      const newItem = {...payload, amount: 1 };
+      const newItem = {...payload, amount: 1, checked: false };
 
       // check if localStorage already have any data
       if(jsonData.length) {
@@ -65,18 +56,10 @@ export default {
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
       }
     },
-    removeFromCart(state, payload) {
+    setCartItems(state, payload) {
       state.cartItems = payload;
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-    },
-    decreaseAmount(state, payload) {
-      state.cartItems = payload;
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-    },
-    multipleRemove(state, payload) {
-      state.cartItems = payload;
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-    },
+    }
   },
   actions : {
     getProducts(context) {
@@ -112,7 +95,7 @@ export default {
       // remove item
       const newCart = jsonData.filter(item => item.id !== payload.id);
 
-      context.commit('removeFromCart', newCart);
+      context.commit('setCartItems', newCart);
     },
     decreaseAmount(context, payload) {
       // get cart data
@@ -132,16 +115,60 @@ export default {
               return item;
             }
           });
-        context.commit('decreaseAmount', newCart);
+        context.commit('setCartItems', newCart);
       }
     },
+    checkItem(context, payload) {
+      // get cart data
+      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
+
+      let newCartItems = jsonData.map((item) => {
+        if (item.id === payload) {
+          return { ...item, checked: !(item.checked)}
+        }else {
+          return item;
+        }
+      });
+
+      context.commit('setCartItems', newCartItems);
+
+    },
+    handleCheckAll(context, payload) {
+      // get cart data
+      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
+
+      const newCartItems = jsonData.map((item) => {
+        return {
+          ...item,
+          checked: payload,
+        }
+      })
+
+      context.commit('setCartItems', newCartItems);
+    },
     multipleRemove(context,payload) {
+      // get cart data
+      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
+
       // remove item
-      const newCart = payload.filter((item) => {
+      const newCart = jsonData.filter((item) => {
         return item.checked === false
       });
 
-      context.commit('multipleRemove', newCart);
+      context.commit('setCartItems', newCart);
+    },
+    resetChecked(context) {
+      // get cart data
+      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
+
+      const newCartItems = jsonData.map((item) => {
+        return {
+          ...item,
+          checked: false,
+        }
+      })
+
+      context.commit('setCartItems', newCartItems);
     }
   }
 }

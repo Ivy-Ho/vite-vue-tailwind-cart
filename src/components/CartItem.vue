@@ -3,8 +3,8 @@
     <!-- checkbox -->
     <input
       type="checkbox"
-      :checked="checkedData"
-      @click="$emit('checkItem', item.id)"
+      :checked="item.checked"
+      @click="checkItem(item.id)"
     />
     <!-- image -->
     <div class="w-[80px] h-[70px] md:w-[140px] md:h-[100px]">
@@ -58,10 +58,6 @@ let props = defineProps({
     type: Object,
     default: {}
   },
-  selectedItemsData: {
-    type: Array,
-    default: []
-  }
 })
 
 const removeFromCart = (product) => {
@@ -76,13 +72,9 @@ const decreaseAmount = (id) => {
   store.dispatch('decreaseAmount', id);
 }
 
-const checkedData = computed(() => {
-  const data = props.selectedItemsData.filter((el) => {
-    return el.id ===  props.item.id
-  })
-
-  return data.length > 0 ? data[0].checked : true;
-})
+const checkItem = (id) => {
+  store.dispatch('checkItem', id);
+}
 
 
 </script>
