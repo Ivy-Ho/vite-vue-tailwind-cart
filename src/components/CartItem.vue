@@ -30,7 +30,7 @@
           <div class='h-full flex justify-center items-center px-3'>{{ item.amount }}</div>
             <!-- plus icon -->
           <button 
-            @click="increaseAmount(item.id)"
+            @click="increaseAmount(item)"
             class='flex-1 h-full flex justify-center items-center cursor-pointer border-l'>
             +
           </button>
@@ -64,8 +64,8 @@ const removeFromCart = (product) => {
   store.dispatch('removeFromCart', product);
 };
 
-const increaseAmount = (id) => {
-  store.dispatch('increaseAmount', id);
+const increaseAmount = (item) => {
+  store.dispatch('addToCart', item);
 }
 
 const decreaseAmount = (id) => {

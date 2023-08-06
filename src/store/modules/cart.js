@@ -23,7 +23,28 @@ export default {
     getCartItems(state, payload) {
       state.cartItems = payload || [];
     },
-    addToCart(state, payload) {
+    setCartItems(state, payload) {
+      state.cartItems = payload;
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    }
+  },
+  actions : {
+    getProducts(context) {
+      const url = 'https://run.mocky.io/v3/d7a29aba-9aac-4a97-b1b7-7b3d87ae8b7e';
+      
+      axios.get(url)
+      .then((res) => {
+        context.commit('getProducts', res.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    },
+    getCartItems(context) {
+      const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
+      context.commit('getCartItems', jsonData);
+    },
+    addToCart(context, payload) {
       // get cart data
       const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -46,47 +67,13 @@ export default {
               return item;
             }
           })
-          state.cartItems = newCart;
+          context.commit('setCartItems', newCart);
         }else {
-          state.cartItems = [...jsonData, newItem];
+          context.commit('setCartItems', [...jsonData, newItem]);
         }
-        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
       }else {
-        state.cartItems = ([newItem]);
-        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        context.commit('setCartItems', [newItem]);
       }
-    },
-    setCartItems(state, payload) {
-      state.cartItems = payload;
-      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-    }
-  },
-  actions : {
-    getProducts(context) {
-      const url = 'https://run.mocky.io/v3/d7a29aba-9aac-4a97-b1b7-7b3d87ae8b7e';
-
-      axios.get(url)
-      .then((res) => {
-        context.commit('getProducts', res.data)
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-    },
-    getCartItems(context) {
-      const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-      context.commit('getCartItems', jsonData);
-    },
-    increaseAmount(context, payload) {
-      // get cart data
-      const jsonData = JSON.parse(localStorage.getItem('cartItems'));
-
-      // get specific item
-      const cartItem = jsonData.find((item) => item.id === payload);
-
-      // add to cart
-      context.commit('addToCart', cartItem);
     },
     removeFromCart(context, payload) {
       // get cart data

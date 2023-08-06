@@ -43,7 +43,7 @@ defineProps({
 
 const addToCart = (product) => {
   if(product.status !== '尚未開始') {
-    store.commit('addToCart',product);
+    store.dispatch('addToCart',product);
   }else {
     return
   }
