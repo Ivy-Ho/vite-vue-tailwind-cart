@@ -14,7 +14,6 @@
 <script setup>
 import { onMounted, computed } from 'vue';
 import Product from "@/components/Product.vue"
-
 import { useStore } from 'vuex'
 const store = useStore()
 
