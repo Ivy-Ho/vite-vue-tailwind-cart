@@ -146,10 +146,11 @@ export default {
           text: `您是否確定將所有已選取的項目從購物車中刪除?`,
           icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "確定",
           cancelButtonText: "取消",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "確定",
+          reverseButtons: true
         }).then((result) => {
           if (result.isConfirmed) {
             // remove item
@@ -162,7 +163,10 @@ export default {
           }
         });
       } else {
-        return;
+        Swal.fire({
+          icon: 'error',
+          text: '請選取要刪除的項目',
+        })
       }
     },
     resetChecked(context) {

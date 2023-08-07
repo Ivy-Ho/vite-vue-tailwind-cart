@@ -1,47 +1,50 @@
 <template>
-  <div class="cartItem w-full flex justify-between items-center gap-2 border-b pb-5">
+  <div class="cartItem w-full flex justify-between items-center gap-2 border-b py-6 mb-4 relative">
     <!-- checkbox -->
     <input type="checkbox" :checked="item.checked" @click="checkItem(item.id)" />
     <!-- image -->
     <div class="w-[80px] h-[70px] md:w-[140px] md:h-[100px]">
       <img class="block w-full h-full object-cover rounded" :src="item.picture" alt="" />
     </div>
-    <!-- title & [qty & price & remove button]  -->
-    <div class="flex-1 flex flex-col justify-between md:flex-row md:items-center md:gap-3">
+    <!-- title & [qty & price]  -->
+    <div class="flex-1 flex flex-col justify-between pr-4 md:pr-0 md:flex-row md:items-center md:gap-4">
       <!-- title -->
-      <div class="text-sm md:text-lg text-left font-medium mb-2">
+      <div class="flex-1 text-sm md:text-lg text-left font-medium mb-2">
         {{ item.title }}
       </div>
-      <!-- [qty & price & remove button] -->
-      <div class="flex justify-between gap-6">
+      <!-- [qty & price] -->
+      <div class="flex-1 flex justify-between gap-6">
         <!-- qty -->
-        <div class="flex flex-1 items-center h-full border font-medium md:w-[160px] md:h-9">
-          <!-- minus icon -->
-          <button @click="decreaseAmount(item.id)"
-            class="flex-1 h-full flex justify-center items-center cursor-pointer border-r">
-            -
-          </button>
-          <!-- amount -->
-          <div class="h-full flex justify-center items-center px-3">
-            {{ item.amount }}
+        <div class="flex-1">
+          <div class="flex items-center h-full border font-medium w-[90px] md:w-[120px] md:h-9">
+            <!-- minus icon -->
+            <button @click="decreaseAmount(item.id)"
+              class="flex-1 h-full flex justify-center items-center cursor-pointer border-r">
+              -
+            </button>
+            <!-- amount -->
+            <div class="h-full flex justify-center items-center px-3">
+              {{ item.amount }}
+            </div>
+            <!-- plus icon -->
+            <button @click="increaseAmount(item)"
+              class="flex-1 h-full flex justify-center items-center cursor-pointer border-l">
+              +
+            </button>
           </div>
-          <!-- plus icon -->
-          <button @click="increaseAmount(item)"
-            class="flex-1 h-full flex justify-center items-center cursor-pointer border-l">
-            +
-          </button>
         </div>
         <!-- price -->
-        <div class="flex-1 flex items-center font-medium">
+        <div class="flex-1 flex items-center justify-end font-medium">
           $ {{ item.price }}
         </div>
-        <!-- remove btn -->
-        <button @click="removeFromCart(item)" class="text-sm cursor-pointer">
-          <font-awesome-icon :icon="['far', 'trash-can']" />
-          <!-- 刪除 -->
-        </button>
       </div>
     </div>
+    <!-- remove btn -->
+    <button @click="removeFromCart(item)" class="cursor-pointer absolute -top-1 right-1 text-gray-400 text-md md:text-lg">
+      <!-- <font-awesome-icon :icon="['far', 'trash-can']" /> -->
+      &#10761;
+      <!-- 刪除 -->
+    </button>
   </div>
 </template>
 <script setup>

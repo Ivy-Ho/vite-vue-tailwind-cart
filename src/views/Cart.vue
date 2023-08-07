@@ -13,12 +13,12 @@
         </button>
       </div>
       <hr class="mb-5" />
-      <div class="flex flex-col gap-5 mb-5">
+      <div class="flex flex-col mb-5">
         <CartItem :item="item" v-for="item in cartItems" :key="item.id" />
       </div>
-      <div class="w-[150px] md:w-1/3 flex flex-col ml-auto mb-10">
-        <p>共 {{ totalAmount }} 件商品</p>
-        <div class="flex justify-between py-5 text-red-500">
+      <div class="w-2/3 md:w-1/3 flex flex-col ml-auto mb-10 pr-4 md:pr-0">
+        <p class="mb-3">共 {{ totalAmount }} 件商品</p>
+        <div class="flex justify-between pt-3 pb-5 text-red-500 font-medium border-t border-gray-500">
           <span>合計金額</span>
           <span>$ {{ totalPrice }}</span>
         </div>

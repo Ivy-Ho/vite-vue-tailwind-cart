@@ -48,11 +48,12 @@ const addToCart = (product) => {
   if (product.status !== "尚未開始") {
     store.dispatch("addToCart", product);
     Swal.fire({
-      title: "加入成功",
+      icon: 'success',
+       title: "加入成功",
       text: `已將 ${product.title} 加入購物車內`,
-      icon: "success",
-      confirmButtonText: "OK",
-    });
+      showConfirmButton: false,
+      timer: 1500
+    })
   } else {
     return;
   }
