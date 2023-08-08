@@ -20,7 +20,7 @@
         <p class="mb-3">共 {{ totalAmount }} 件商品</p>
         <div class="flex justify-between pt-3 pb-5 text-red-500 font-medium border-t border-gray-500">
           <span>合計金額</span>
-          <span>$ {{ totalPrice }}</span>
+          <span>{{ $filters.thousandsFilter(totalPrice) }}</span>
         </div>
       </div>
       <div class="flex justify-between">

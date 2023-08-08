@@ -35,7 +35,7 @@
         </div>
         <!-- price -->
         <div class="flex-1 flex items-center justify-end font-medium">
-          $ {{ item.price }}
+          {{ $filters.thousandsFilter(item.price) }}
         </div>
       </div>
     </div>

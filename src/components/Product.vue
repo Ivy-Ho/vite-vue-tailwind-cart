@@ -19,7 +19,7 @@
       <!-- title -->
       <h2 class="font-medium mb-1">{{ product.title }}</h2>
       <!-- price -->
-      <div class="font-bold mb-1">$ {{ product.price }}</div>
+      <div class="font-bold mb-1">{{ $filters.thousandsFilter(product.price) }}</div>
       <!-- buttons -->
       <button @click="addToCart(product)" class="w-full text-center py-1 rounded" :class="[
         product.status === '尚未開始'
