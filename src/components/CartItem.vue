@@ -18,7 +18,7 @@
         <div class="flex-1">
           <div class="flex items-center h-full border font-medium w-[90px] md:w-[120px] md:h-9">
             <!-- minus icon -->
-            <button @click="decreaseAmount(item.id)"
+            <button @click="decreaseAmount(item)"
               class="flex-1 h-full flex justify-center items-center cursor-pointer border-r">
               -
             </button>
@@ -60,30 +60,16 @@ const props = defineProps({
   },
 });
 
-const removeFromCart = (product) => {
-  Swal.fire({
-    title: "刪除單品項",
-    text: `您是否確定將 ${product.title} 從購物車中刪除?`,
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      store.dispatch("removeFromCart", product);
-      Swal.fire("刪除成功", "", "success");
-    }
-  });
+const removeFromCart = (item) => {
+  store.dispatch("removeFromCart", item);
 };
 
 const increaseAmount = (item) => {
   store.dispatch("addToCart", item);
 };
 
-const decreaseAmount = (id) => {
-  store.dispatch("decreaseAmount", id);
+const decreaseAmount = (item) => {
+  store.dispatch("decreaseAmount", item);
 };
 
 const checkItem = (id) => {

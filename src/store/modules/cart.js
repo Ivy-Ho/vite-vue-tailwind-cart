@@ -85,21 +85,41 @@ export default {
       // remove item
       const newCart = jsonData.filter((item) => item.id !== payload.id);
 
-      context.commit("setCartItems", newCart);
+      Swal.fire({
+        title: "刪除單品項",
+        text: `您是否確定將 ${payload.title} 從購物車中刪除?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          context.commit("setCartItems", newCart);
+          Swal.fire({
+            icon: "success",
+            title: "刪除成功",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
     },
     decreaseAmount(context, payload) {
       // get cart data
       const jsonData = JSON.parse(localStorage.getItem("cartItems"));
 
       // get specific item
-      const cartItem = jsonData.find((item) => item.id === payload);
+      const cartItem = jsonData.find((item) => item.id === payload.id);
 
       // check if item's amount < 2, remove it
       if (cartItem.amount < 2) {
         context.dispatch("removeFromCart", cartItem);
       } else {
         const newCart = [...jsonData].map((item) => {
-          if (item.id === payload) {
+          if (item.id === payload.id) {
             return { ...item, amount: item.amount - 1 };
           } else {
             return item;
@@ -146,27 +166,31 @@ export default {
           text: `您是否確定將所有已選取的項目從購物車中刪除?`,
           icon: "warning",
           showCancelButton: true,
-          cancelButtonColor: "#d33",
-          cancelButtonText: "取消",
           confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
           confirmButtonText: "確定",
-          reverseButtons: true
+          cancelButtonText: "取消",
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             // remove item
             const newCart = jsonData.filter((item) => {
               return item.checked === false;
             });
-
             context.commit("setCartItems", newCart);
-            Swal.fire("刪除成功", "", "success");
+            Swal.fire({
+              icon: "success",
+              title: "刪除成功",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         });
       } else {
         Swal.fire({
-          icon: 'error',
-          text: '請選取要刪除的項目',
-        })
+          icon: "error",
+          text: "請選取要刪除的項目",
+        });
       }
     },
     resetChecked(context) {
