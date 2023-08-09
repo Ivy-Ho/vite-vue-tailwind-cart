@@ -4,7 +4,7 @@
     <input type="checkbox" :checked="item.checked" @click="checkItem(item.id)" />
     <!-- image -->
     <div class="w-[80px] h-[70px] md:w-[140px] md:h-[100px]">
-      <img class="block w-full h-full object-cover rounded" :src="item.picture" alt="" />
+      <img class="block w-full h-full object-cover rounded" :src="item.image" alt="" />
     </div>
     <!-- title & [qty & price]  -->
     <div class="flex-1 flex flex-col justify-between pr-4 md:pr-0 md:flex-row md:items-center md:gap-4">

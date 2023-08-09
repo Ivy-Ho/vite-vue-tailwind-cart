@@ -1,7 +1,7 @@
 <template>
   <main class="home">
-    <h2 class="text-xl md:text-2xl mb-4">精選課程</h2>
-    <div v-if="products.length" class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[45px] lg:gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0'>
+    <h2 class="text-xl md:text-2xl mb-4">Product List</h2>
+    <div v-if="products.length" class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[45px] lg:gap-[60px] max-w-sm mx-auto md:max-w-none md:mx-0'>
       <Product :product="product" v-for="product in products" :key="product.id"/>
     </div>
 

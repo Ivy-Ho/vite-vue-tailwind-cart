@@ -32,7 +32,7 @@ export default {
   actions: {
     getProducts(context) {
       const url =
-        "https://run.mocky.io/v3/d7a29aba-9aac-4a97-b1b7-7b3d87ae8b7e";
+        "https://fakestoreapi.com/products";
 
       axios
         .get(url)
@@ -86,21 +86,21 @@ export default {
       const newCart = jsonData.filter((item) => item.id !== payload.id);
 
       Swal.fire({
-        title: "刪除單品項",
-        text: `您是否確定將 ${payload.title} 從購物車中刪除?`,
+        title: "Remove this item?",
+        text: `Are you sure that you want to remove "${payload.title}" from the cart list?`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "確定",
-        cancelButtonText: "取消",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           context.commit("setCartItems", newCart);
           Swal.fire({
             icon: "success",
-            title: "刪除成功",
+            title: "Remove Successfully",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -162,14 +162,14 @@ export default {
       let hasAnyChecked = jsonData.some((item) => item.checked === true);
       if (hasAnyChecked) {
         Swal.fire({
-          title: "刪除選取項目",
-          text: `您是否確定將所有已選取的項目從購物車中刪除?`,
+          title: "Remove all checked items?",
+          text: `Do you want to remove all checked items from the cart list?`,
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "確定",
-          cancelButtonText: "取消",
+          confirmButtonText: "Yes",
+          cancelButtonText: "Cancel",
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -180,7 +180,7 @@ export default {
             context.commit("setCartItems", newCart);
             Swal.fire({
               icon: "success",
-              title: "刪除成功",
+              title: "Remove Successfully",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -189,7 +189,7 @@ export default {
       } else {
         Swal.fire({
           icon: "error",
-          text: "請選取要刪除的項目",
+          text: "Please check the items which you want to remove from the cart list.",
         });
       }
     },
