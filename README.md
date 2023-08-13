@@ -1,7 +1,29 @@
-# Vue 3 + Vite
+# vite-vue-tailwind-cart
+![image](./public/home.png)
+![image](./public/cart.png)
+## About This Project
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is an example shopping cart application built using Vue 3 and a range of modern web technologies. 
 
-## Recommended IDE Setup
+## Technologies Used
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Vue3
+- Vue-router
+- Vuex
+- Vite
+- axios
+- Tailwind CSS
+- fontawesome
+- sweetalert2
+- ESLint
+- Prettier
+
+## Getting Started
+1. Clone the repository.
+2. Install dependencies using npm install or yarn install.
+3. Run the development server using npm run dev or yarn dev.
+4. Open your browser and navigate to the development URL.
+
+## Resources
+### API
+[Fake Store API](https://fakestoreapi.com/)
