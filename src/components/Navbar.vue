@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <nav class="w-full px-5 md:px-10 py-5 sticky top-0 z-30 bg-gray-800 flex justify-between items-center">
     <router-link class="lg:hover:text-gray-400 text-white mr-6 text-xl" to="/">
@@ -27,7 +25,7 @@ import { useStore } from "vuex";
 const store = useStore();
 
 const totalAmount = computed(() => {
-  return store.getters.totalAmount;
+	return store.getters.totalAmount;
 });
 </script>
 <style scoped>

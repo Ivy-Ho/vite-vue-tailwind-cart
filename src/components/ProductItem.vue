@@ -6,7 +6,7 @@
         class="w-full h-[300px] object-cover block lg:group-hover:scale-110 transition duration-300 rounded-tl rounded-tr"
         :src="product.image" :alt="`${product.title}-image`" />
       <!-- buttons -->
-      <button @click="addToCart(product)" class="w-9 h-9 flex items-center justify-center rounded bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white absolute top-2 right-2">
+      <button class="w-9 h-9 flex items-center justify-center rounded bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white absolute top-2 right-2" @click="addToCart(product)">
         <font-awesome-icon :icon="['fas', 'cart-plus']" />
       </button>
     </div>
@@ -29,21 +29,20 @@ import { useStore } from "vuex";
 import Swal from "sweetalert2";
 const store = useStore();
 
-const props = defineProps({
-  product: {
-    type: Object,
-    default: {},
-  },
+defineProps({
+	product: {
+		type: Object, default: ()=> {},
+	},
 });
 
 const addToCart = (product) => {
-  store.dispatch("addToCart", product);
-  Swal.fire({
-    icon: 'success',
-     title: "Success!",
-    text: `Add "${product.title}" to the cart.`,
-    showConfirmButton: false,
-    timer: 1500
-  })
+	store.dispatch("addToCart", product);
+	Swal.fire({
+		icon: "success",
+		title: "Success!",
+		text: `Add "${product.title}" to the cart.`,
+		showConfirmButton: false,
+		timer: 1500
+	});
 };
 </script>

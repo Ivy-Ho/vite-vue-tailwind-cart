@@ -18,8 +18,9 @@
         <div class="flex-1">
           <div class="flex items-center h-full border font-medium w-[90px] md:w-[120px] md:h-9">
             <!-- minus icon -->
-            <button @click="decreaseAmount(item)"
-              class="flex-1 h-full flex justify-center items-center cursor-pointer border-r">
+            <button 
+              class="flex-1 h-full flex justify-center items-center cursor-pointer border-r"
+              @click="decreaseAmount(item)">
               -
             </button>
             <!-- amount -->
@@ -27,8 +28,9 @@
               {{ item.amount }}
             </div>
             <!-- plus icon -->
-            <button @click="increaseAmount(item)"
-              class="flex-1 h-full flex justify-center items-center cursor-pointer border-l">
+            <button
+class="flex-1 h-full flex justify-center items-center cursor-pointer border-l"
+              @click="increaseAmount(item)">
               +
             </button>
           </div>
@@ -40,7 +42,7 @@
       </div>
     </div>
     <!-- remove btn -->
-    <button @click="removeFromCart(item)" class="cursor-pointer absolute -top-1 right-1 text-gray-400 text-md md:text-lg">
+    <button class="cursor-pointer absolute -top-1 right-1 text-gray-400 text-md md:text-lg" @click="removeFromCart(item)">
       <!-- <font-awesome-icon :icon="['far', 'trash-can']" /> -->
       &#10761;
       <!-- 刪除 -->
@@ -49,30 +51,27 @@
 </template>
 <script setup>
 import { useStore } from "vuex";
-import Swal from "sweetalert2";
 
 const store = useStore();
 
-const props = defineProps({
-  item: {
-    type: Object,
-    default: {},
-  },
+defineProps({
+	item: {
+		type: Object, default: ()=> {}},
 });
 
 const removeFromCart = (item) => {
-  store.dispatch("removeFromCart", item);
+	store.dispatch("removeFromCart", item);
 };
 
 const increaseAmount = (item) => {
-  store.dispatch("addToCart", item);
+	store.dispatch("addToCart", item);
 };
 
 const decreaseAmount = (item) => {
-  store.dispatch("decreaseAmount", item);
+	store.dispatch("decreaseAmount", item);
 };
 
 const checkItem = (id) => {
-  store.dispatch("checkItem", id);
+	store.dispatch("checkItem", id);
 };
 </script>

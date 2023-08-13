@@ -3,7 +3,7 @@ import "./style.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import filters from './helpers/filters'
+import filters from "./helpers/filters";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -17,9 +17,9 @@ library.add(faCartShopping, faCartPlus, faTrashCan);
 
 const app = createApp(App);
 
-app.config.globalProperties.$filters = filters
+app.config.globalProperties.$filters = filters;
 app
-  .use(router)
-  .use(store)
-  .component("font-awesome-icon", FontAwesomeIcon)
-  .mount("#app");
+	.use(router)
+	.use(store)
+	.component("font-awesome-icon", FontAwesomeIcon)
+	.mount("#app");
