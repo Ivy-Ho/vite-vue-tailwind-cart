@@ -75,7 +75,6 @@ const handleCheckAll = () => {
 };
 
 const multipleRemove = () => {
-
 	store.dispatch("multipleRemove");
 };
 

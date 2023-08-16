@@ -1,6 +1,6 @@
 <template>
   <div class="product group">
-    <div class="relative h-[300px] mb-4 overflow-hidden transition">
+    <div class="relative mb-4 overflow-hidden transition">
       <!-- image -->
       <img
         class="w-full h-[300px] object-cover block lg:group-hover:scale-110 transition duration-300 rounded-tl rounded-tr"
@@ -44,5 +44,6 @@ const addToCart = (product) => {
 		showConfirmButton: false,
 		timer: 1500
 	});
+
 };
 </script>
