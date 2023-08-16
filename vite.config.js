@@ -6,7 +6,7 @@ import eslintPlugin from "vite-plugin-eslint";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: "/vite-vue-tailwind-cart/",
+	base: "/vite-vue-tailwind-cart",
 	plugins: [
 		vue(),
 		eslintPlugin({

@@ -1,11 +1,11 @@
 // store/index.js
-import { createStore } from 'vuex'
-import cart from './modules/cart'
+import { createStore } from "vuex";
+import cart from "./modules/cart";
 
 const store = createStore({
-    modules: {
-        cart,
-    },
-})
+	modules: {
+		cart,
+	},
+});
 
-export default store
+export default store;
