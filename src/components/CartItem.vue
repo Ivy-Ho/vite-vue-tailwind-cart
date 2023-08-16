@@ -1,7 +1,7 @@
 <template>
   <div class="cartItem w-full flex justify-between items-center gap-2 border-b py-6 mb-4 relative">
     <!-- checkbox -->
-    <input type="checkbox" :checked="item.checked" @click="checkItem(item.id)" />
+    <input type="checkbox" class="accent-theme-orange w-4 h-4" :checked="item.checked" @click="checkItem(item.id)" />
     <!-- image -->
     <div class="w-[80px] md:w-[140px] ">
       <img class="block w-full h-[70px] md:h-[100px] object-cover rounded" :src="item.image" alt="" />

@@ -5,10 +5,10 @@
     <div v-if="cartItems.length">
       <div class="flex items-center py-2">
         <!-- checkbox -->
-        <input id="checkAll" class="mr-2" name="checkAll" type="checkbox" :checked="checkAll" @click="handleCheckAll()" />
+        <input id="checkAll" class="mr-2 accent-theme-orange w-4 h-4" name="checkAll" type="checkbox" :checked="checkAll" @click="handleCheckAll()" />
         <label for="checkAll">check all</label>
         <!-- multiple remove button -->
-        <button class="bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white px-3 py-1 rounded ml-auto" @click="multipleRemove()">
+        <button class="bg-theme-orange lg:hover:bg-[#ef733e] text-white px-3 py-1 rounded ml-auto" @click="multipleRemove()">
           Remove checked Items
         </button>
       </div>

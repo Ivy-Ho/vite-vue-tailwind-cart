@@ -6,7 +6,7 @@
         class="w-full h-[300px] object-cover block lg:group-hover:scale-110 transition duration-300 rounded-tl rounded-tr"
         :src="product.image" :alt="`${product.title}-image`" />
       <!-- buttons -->
-      <button class="w-9 h-9 flex items-center justify-center rounded bg-[#f15c1b] lg:hover:bg-[#ef733e] text-white absolute top-2 right-2" @click="addToCart(product)">
+      <button class="w-9 h-9 flex items-center justify-center rounded bg-theme-orange lg:hover:bg-[#ef733e] text-white absolute top-2 right-2" @click="addToCart(product)">
         <font-awesome-icon :icon="['fas', 'cart-plus']" />
       </button>
     </div>
