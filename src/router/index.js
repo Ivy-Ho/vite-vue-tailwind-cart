@@ -1,18 +1,18 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
 	{
-		path: "/",
-		component: () => import("@/views/LayoutView.vue"),
+		path: '/',
+		component: () => import('@/views/LayoutView.vue'),
 		children: [
 			{
-				path: "",
-				component: () => import("@/views/HomeView.vue"),
+				path: '',
+				component: () => import('@/views/HomeView.vue'),
 			},
 			{
-				path: "/cart",
-				name: "CartView",
-				component: () => import("@/views/CartView.vue"),
+				path: '/cart',
+				name: 'CartView',
+				component: () => import('@/views/CartView.vue'),
 			},
 		],
 	},
@@ -20,7 +20,7 @@ const routes = [
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
-	routes
+	routes,
 });
 
 export default router;
