@@ -18,8 +18,4 @@ library.add(faCartShopping, faCartPlus, faTrashCan);
 const app = createApp(App);
 
 app.config.globalProperties.$filters = filters;
-app
-	.use(router)
-	.use(store)
-	.component('font-awesome-icon', FontAwesomeIcon)
-	.mount('#app');
+app.use(router).use(store).component('font-awesome-icon', FontAwesomeIcon).mount('#app');

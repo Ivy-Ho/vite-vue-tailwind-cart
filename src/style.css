@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer base {
-	:root {
-		font-family: 'Poppins', 'Noto Sans TC', 'PingFang SC', sans-serif;
-	}
+  :root {
+    font-family: 'Poppins', 'Noto Sans TC', 'PingFang SC', sans-serif;
+  }
 }
