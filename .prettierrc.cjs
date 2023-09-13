@@ -35,4 +35,5 @@ module.exports = {
 	//對應的控制字符為 "\n" (LF) 和 "\r\n"(CRLF)。auto 意為保持現有的行尾
 	//換行符使用 lf 结尾是 可選值"<auto|lf|crlf|cr>"
 	endOfLine: 'auto',
+	plugins: ['prettier-plugin-tailwindcss'],
 };

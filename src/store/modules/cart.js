@@ -1,5 +1,5 @@
-import axios from "axios";
-import Swal from "sweetalert2";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
 	state: {
@@ -26,30 +26,29 @@ export default {
 		},
 		setCartItems(state, payload) {
 			state.cartItems = payload;
-			localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+			localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
 		},
 	},
 	actions: {
 		getProducts(context) {
-			const url =
-        "https://fakestoreapi.com/products";
+			const url = 'https://fakestoreapi.com/products';
 
 			axios
 				.get(url)
 				.then((res) => {
-					context.commit("getProducts", res.data);
+					context.commit('getProducts', res.data);
 				})
 				.catch((error) => {
-					console.error("Error fetching data:", error);
+					console.error('Error fetching data:', error);
 				});
 		},
 		getCartItems(context) {
-			const jsonData = JSON.parse(localStorage.getItem("cartItems")) || [];
-			context.commit("getCartItems", jsonData);
+			const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
+			context.commit('getCartItems', jsonData);
 		},
 		addToCart(context, payload) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems")) || [];
+			const jsonData = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 			// get new item
 			const newItem = { ...payload, amount: 1, checked: false };
@@ -70,37 +69,37 @@ export default {
 							return item;
 						}
 					});
-					context.commit("setCartItems", newCart);
+					context.commit('setCartItems', newCart);
 				} else {
-					context.commit("setCartItems", [...jsonData, newItem]);
+					context.commit('setCartItems', [...jsonData, newItem]);
 				}
 			} else {
-				context.commit("setCartItems", [newItem]);
+				context.commit('setCartItems', [newItem]);
 			}
 		},
 		removeFromCart(context, payload) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems"));
+			const jsonData = JSON.parse(localStorage.getItem('cartItems'));
 
 			// remove item
 			const newCart = jsonData.filter((item) => item.id !== payload.id);
 
 			Swal.fire({
-				title: "Remove this item?",
+				title: 'Remove this item?',
 				text: `Are you sure that you want to remove "${payload.title}" from the cart list?`,
-				icon: "warning",
+				icon: 'warning',
 				showCancelButton: true,
-				confirmButtonColor: "#3085d6",
-				cancelButtonColor: "#d33",
-				confirmButtonText: "Yes",
-				cancelButtonText: "Cancel",
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes',
+				cancelButtonText: 'Cancel',
 				reverseButtons: true,
 			}).then((result) => {
 				if (result.isConfirmed) {
-					context.commit("setCartItems", newCart);
+					context.commit('setCartItems', newCart);
 					Swal.fire({
-						icon: "success",
-						title: "Remove Successfully",
+						icon: 'success',
+						title: 'Remove Successfully',
 						showConfirmButton: false,
 						timer: 1500,
 					});
@@ -109,14 +108,14 @@ export default {
 		},
 		decreaseAmount(context, payload) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems"));
+			const jsonData = JSON.parse(localStorage.getItem('cartItems'));
 
 			// get specific item
 			const cartItem = jsonData.find((item) => item.id === payload.id);
 
 			// check if item's amount < 2, remove it
 			if (cartItem.amount < 2) {
-				context.dispatch("removeFromCart", cartItem);
+				context.dispatch('removeFromCart', cartItem);
 			} else {
 				const newCart = [...jsonData].map((item) => {
 					if (item.id === payload.id) {
@@ -125,12 +124,12 @@ export default {
 						return item;
 					}
 				});
-				context.commit("setCartItems", newCart);
+				context.commit('setCartItems', newCart);
 			}
 		},
 		checkItem(context, payload) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems"));
+			const jsonData = JSON.parse(localStorage.getItem('cartItems'));
 
 			let newCartItems = jsonData.map((item) => {
 				if (item.id === payload) {
@@ -140,11 +139,11 @@ export default {
 				}
 			});
 
-			context.commit("setCartItems", newCartItems);
+			context.commit('setCartItems', newCartItems);
 		},
 		handleCheckAll(context, payload) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems"));
+			const jsonData = JSON.parse(localStorage.getItem('cartItems'));
 
 			const newCartItems = jsonData.map((item) => {
 				return {
@@ -153,23 +152,23 @@ export default {
 				};
 			});
 
-			context.commit("setCartItems", newCartItems);
+			context.commit('setCartItems', newCartItems);
 		},
 		multipleRemove(context) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems"));
+			const jsonData = JSON.parse(localStorage.getItem('cartItems'));
 
 			let hasAnyChecked = jsonData.some((item) => item.checked === true);
 			if (hasAnyChecked) {
 				Swal.fire({
-					title: "Remove all checked items?",
-					text: "Are you sure you want to remove all checked items from the cart list?",
-					icon: "warning",
+					title: 'Remove all checked items?',
+					text: 'Are you sure you want to remove all checked items from the cart list?',
+					icon: 'warning',
 					showCancelButton: true,
-					confirmButtonColor: "#3085d6",
-					cancelButtonColor: "#d33",
-					confirmButtonText: "Yes",
-					cancelButtonText: "Cancel",
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes',
+					cancelButtonText: 'Cancel',
 					reverseButtons: true,
 				}).then((result) => {
 					if (result.isConfirmed) {
@@ -177,10 +176,10 @@ export default {
 						const newCart = jsonData.filter((item) => {
 							return item.checked === false;
 						});
-						context.commit("setCartItems", newCart);
+						context.commit('setCartItems', newCart);
 						Swal.fire({
-							icon: "success",
-							title: "Remove Successfully",
+							icon: 'success',
+							title: 'Remove Successfully',
 							showConfirmButton: false,
 							timer: 1500,
 						});
@@ -188,14 +187,14 @@ export default {
 				});
 			} else {
 				Swal.fire({
-					icon: "error",
-					text: "Please check the items which you want to remove from the cart list.",
+					icon: 'error',
+					text: 'Please check the items which you want to remove from the cart list.',
 				});
 			}
 		},
 		resetChecked(context) {
 			// get cart data
-			const jsonData = JSON.parse(localStorage.getItem("cartItems"));
+			const jsonData = JSON.parse(localStorage.getItem('cartItems'));
 
 			const newCartItems = jsonData.map((item) => {
 				return {
@@ -204,7 +203,7 @@ export default {
 				};
 			});
 
-			context.commit("setCartItems", newCartItems);
+			context.commit('setCartItems', newCartItems);
 		},
 	},
 };
